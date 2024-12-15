@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 
 export default defineConfig({
+  base: '/onepiece-explorer/',
   plugins: [vue()],
   resolve: {
     alias: {
