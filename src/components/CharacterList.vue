@@ -1,7 +1,7 @@
 <template>
   <div class="characters">
     <h1>One Piece Characters</h1>
-    <div v-if="loading">Loading...</div>
+    <LoadingSpinner v-if="loading" />
     <div v-else-if="error">{{ error }}</div>
     <div v-else class="grid-layout">
       <div v-for="character in characters" 
@@ -42,9 +42,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useCharacters } from '@/composables/useCharacters';
+import LoadingSpinner from './LoadingSpinner.vue';
 
 export default defineComponent({
-  name: 'CharacterList',
+  components: {
+    LoadingSpinner
+  },
   setup() {
     const { characters, loading, error, formatBounty, fetchCharacters } = useCharacters();
 

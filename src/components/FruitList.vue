@@ -1,17 +1,7 @@
 <template>
   <div class="fruits">
     <h1>Devil Fruits</h1>
-    <div class="filters">
-      <button 
-        v-for="type in fruitTypes" 
-        :key="type"
-        @click="filterByType(type)"
-        :class="{ active: currentType === type }">
-        {{ type }}
-      </button>
-    </div>
-
-    <div v-if="loading">Loading...</div>
+    <LoadingSpinner v-if="loading" />
     <div v-else-if="error">{{ error }}</div>
     <div v-else class="grid-layout">
       <div v-for="fruit in filteredFruits" 
@@ -36,9 +26,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useFruits } from '@/composables/useFruits';
+import LoadingSpinner from './LoadingSpinner.vue';
 
 export default defineComponent({
-  name: 'FruitList',
+  components: {
+    LoadingSpinner
+  },
   setup() {
     const {
       fruits,

@@ -1,8 +1,7 @@
 <template>
     <div class="sagas">
       <h1>One Piece Sagas</h1>
-      
-      <div v-if="loading">Loading...</div>
+      <LoadingSpinner v-if="loading" />
       <div v-else-if="error">{{ error }}</div>
       <div v-else class="saga-timeline">
         <div v-for="saga in sagas" 
@@ -35,9 +34,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useSagas } from '@/composables/useSagas';
+import LoadingSpinner from './LoadingSpinner.vue';
 
 export default defineComponent({
   name: 'SagaList',
+  components: {
+    LoadingSpinner
+  },
   setup() {
     const { sagas, loading, error, fetchSagas } = useSagas();
 
