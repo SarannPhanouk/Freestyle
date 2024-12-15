@@ -33,52 +33,38 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted, computed } from 'vue';
-import { getFruits } from '../api/onePiece';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { useFruits } from '@/composables/useFruits';
 
-export default {
+export default defineComponent({
+  name: 'FruitList',
   setup() {
-    const fruits = ref([]);
-    const loading = ref(true);
-    const error = ref(null);
-    const currentType = ref('All');
-    const fruitTypes = ['All', 'Paramecia', 'Logia', 'Zoan'];
-
-    const filterByType = (type) => {
-      currentType.value = type;
-    };
-
-    const filteredFruits = computed(() => {
-      if (currentType.value === 'All') {
-        return fruits.value;
-      }
-      return fruits.value.filter(fruit => fruit.type === currentType.value);
-    });
-
-    onMounted(async () => {
-      try {
-        const response = await getFruits();
-        fruits.value = response.data;
-      } catch (err) {
-        error.value = 'Failed to load fruits';
-        console.error(err);
-      } finally {
-        loading.value = false;
-      }
-    });
-
-    return { 
-      fruits, 
-      loading, 
-      error, 
-      currentType, 
-      fruitTypes, 
+    const {
+      fruits,
+      loading,
+      error,
+      currentType,
+      fruitTypes,
+      filteredFruits,
       filterByType,
-      filteredFruits
+      fetchFruits
+    } = useFruits();
+
+    // Call fetchFruits on mount
+    fetchFruits();
+
+    return {
+      fruits,
+      loading,
+      error,
+      currentType,
+      fruitTypes,
+      filteredFruits,
+      filterByType
     };
   }
-}
+});
 </script>
 
 <style scoped>

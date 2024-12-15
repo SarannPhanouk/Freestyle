@@ -32,31 +32,25 @@
     </div>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
-import { getSagas } from '../api/onePiece';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { useSagas } from '@/composables/useSagas';
 
-export default {
+export default defineComponent({
+  name: 'SagaList',
   setup() {
-    const sagas = ref([]);
-    const loading = ref(true);
-    const error = ref(null);
+    const { sagas, loading, error, fetchSagas } = useSagas();
 
-    onMounted(async () => {
-      try {
-        const response = await getSagas();
-        sagas.value = response.data;
-      } catch (err) {
-        error.value = 'Failed to load sagas';
-        console.error(err);
-      } finally {
-        loading.value = false;
-      }
-    });
+    // Call fetchSagas on mount
+    fetchSagas();
 
-    return { sagas, loading, error };
+    return {
+      sagas,
+      loading,
+      error
+    };
   }
-}
+});
 </script>
 
 <style scoped>

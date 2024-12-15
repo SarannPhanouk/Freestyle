@@ -39,35 +39,25 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
-import { getCharacters } from '../api/onePiece';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { useCharacters } from '@/composables/useCharacters';
 
-export default {
+export default defineComponent({
+  name: 'CharacterList',
   setup() {
-    const characters = ref([]);
-    const loading = ref(true);
-    const error = ref(null);
+    const { characters, loading, error, formatBounty, fetchCharacters } = useCharacters();
 
-    const formatBounty = (bounty) => {
-      return bounty?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    fetchCharacters();
+
+    return {
+      characters,
+      loading,
+      error, 
+      formatBounty
     };
-
-    onMounted(async () => {
-      try {
-        const response = await getCharacters();
-        characters.value = response.data;
-      } catch (err) {
-        error.value = 'Failed to load characters';
-        console.error(err);
-      } finally {
-        loading.value = false;
-      }
-    });
-
-    return { characters, loading, error, formatBounty };
   }
-}
+});
 </script>
 
 <style scoped>

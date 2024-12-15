@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 import CharacterList from '../components/CharacterList.vue';
 import FruitList from '../components/FruitList.vue';
 import SagaList from '../components/SagaList.vue';
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Characters',
@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: '/fruits',
-    name: 'Fruits',
+    name: 'Fruits', 
     component: FruitList
   },
   {
