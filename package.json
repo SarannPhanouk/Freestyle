@@ -9,7 +9,7 @@
     "build": "vue-tsc && vite build",
     "serve": "vite preview",
     "type-check": "vue-tsc --noEmit",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist -b gh-pages"
   },
   "keywords": [],
   "author": "",

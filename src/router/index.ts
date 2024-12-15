@@ -1,4 +1,4 @@
-import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
+import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router';
 import CharacterList from '../components/CharacterList.vue';
 import FruitList from '../components/FruitList.vue';
 import SagaList from '../components/SagaList.vue';
@@ -22,6 +22,6 @@ const routes: RouteRecordRaw[] = [
 ];
 
 export default createRouter({
-  history: createWebHistory('/onepiece-explorer/'),
+  history: createWebHashHistory(),  // Change to hash history
   routes
 });
